@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rent</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/list_view.css' %}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<style>
+    body {
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    flex: 1;
+}
+
+.content-section {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0,);
+    padding: 2rem;
+}
+
+.content-section legend {
+    font-size: 1.75rem;
+    color: #495057;
+}
+
+.content-section .form-group {
+    margin-bottom: 1rem;
+}
+
+.content-section .btn-outline-info {
+    width: 100%;
+}
+
+.border-top {
+    border-top: 1px solid #e9ecef;
+}
+
+.form-text {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.form-text a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.form-text a:hover {
+    text-decoration: underline;
+}
+
+.text-center a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.text-center a:hover {
+    text-decoration: underline;
+}
+
+</style>
+<body>
+{% block content %}
+
+<div class="container mt-5">
+    <div class="content-section p-4 rounded shadow-sm bg-white">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Register</legend>
+                {{ form.as_p }}
+            </fieldset>
+
+            <div class="form-group">
+                <button class="btn btn-outline-info w-100" type="submit">Sign Up</button>
+            </div>
+        </form>
+        <div class="border-top pt-3 mt-3 text-center">
+            <small class="text-muted">
+                Already Have An Account? <a class="ml-2" href="/login">Sign In</a>
+            </small>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</html>

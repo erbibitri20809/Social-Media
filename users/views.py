@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib import messages
 
 
 # Create your views here.
@@ -17,11 +16,7 @@ def register(request):
             user = authenticate(username=username, password=raw_password)
             if user is not None:
                 login(request, user)
-                messages.success(request, 'Registration successful.')
-            else:
-                messages.error(request, 'Authentication failed. Please try logging in.')
-        else:
-            messages.error(request, 'Registration failed. Please correct the errors below.')
+                return redirect('home_view')
     else:
         form = UserCreationForm()
 
@@ -38,11 +33,7 @@ def custom_login(request):
             )
             if user is not None:
                 login(request, user)
-                messages.success(request, 'Logged in successfully.')
-            else:
-                messages.error(request, 'Login failed. Please check your username and password.')
-        else:
-            messages.error(request, 'Invalid login credentials.')
+                return redirect('home_view')
     else:
         form = AuthenticationForm()
 

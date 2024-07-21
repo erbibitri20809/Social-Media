@@ -10,6 +10,7 @@ def home_view(request):
     return render(request, 'home.html', context)
 
 
+@login_required
 def post_form(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
@@ -56,7 +57,7 @@ def update_desc(request, id):
     context = {'form': form}
     return render(request, 'update.html', context)
 
-
+@login_required
 def add_comment(request, id):
     post = get_object_or_404(Post, id=id)
     if request.method == "POST":

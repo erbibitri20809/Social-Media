@@ -1,0 +1,65 @@
+
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Social Media</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/list_view.css' %}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+         }
+        .container {
+            flex: 1;
+        }
+
+        .content {
+            min-height: 500px;
+            margin-top: 120px;
+        }
+        .alert {
+            background-color: #e9ecef;
+            border: none;
+        }
+
+        .alert h2 {
+            color: #495057;
+        }
+
+        .alert a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .alert a:hover {
+            text-decoration: underline;
+        }
+
+</style>
+<body>
+
+<div class="container mt-5">
+    {% block content %}
+        <div class="alert alert-info text-center" role="alert">
+            <h2 class="mb-3">You have been logged out</h2>
+            <div class="border-top pt-3 content">
+                <small class="text-muted">
+                    <a href="{% url 'login' %}">Log In Again</a>
+                </small>
+            </div>
+        </div>
+    {% endblock content %}
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</html>
+
+

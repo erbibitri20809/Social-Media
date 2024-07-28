@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post, Comment
+from .models import Post, Story
+from django.utils import timezone
+from datetime import timedelta
 from django.contrib.auth.decorators import login_required
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, StoryForm
 
 
 def home_view(request):
-    objects = Post.objects.all().order_by('-created_at')
-    context = {'objects': objects}
-    return render(request, 'home.html', context)
+    posts = Post.objects.all().order_by('-created_at')
+    now = timezone.now()
+    twenty_four_hours_ago = now - timedelta(hours=24)
+    stories = Story.objects.order_by('-created_at').filter(created_at__gte=twenty_four_hours_ago)
+    return render(request, 'home.html', context={'posts': posts, "stories": stories})
 
 
 @login_required
@@ -57,6 +61,7 @@ def update_desc(request, id):
     context = {'form': form}
     return render(request, 'update.html', context)
 
+
 @login_required
 def add_comment(request, id):
     post = get_object_or_404(Post, id=id)
@@ -76,3 +81,27 @@ def add_comment(request, id):
         'post': post,
     }
     return render(request, 'comment.html', context)
+
+
+@login_required
+def story_form(request):
+    if request.method == 'POST':
+        form = StoryForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+            return redirect('home_view')
+    else:
+        form = StoryForm()
+
+    context = {'form': form}
+    return render(request, 'post_story.html', context)
+
+
+def story_view(request, pk):
+    stories = get_object_or_404(Story, pk=pk)
+    return render(request, 'story_view.html', context={'stories': stories})
+
+
+

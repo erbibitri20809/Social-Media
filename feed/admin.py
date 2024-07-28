@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Comment
+from .models import Post, Comment, Story
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -16,3 +16,11 @@ class CommentAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Comment, CommentAdmin)
+
+
+class StoryAdmin(admin.ModelAdmin):
+    list_display = ('user', 'story', 'created_at')
+    search_fields = ('user__username',)
+
+
+admin.site.register(Story, StoryAdmin)
